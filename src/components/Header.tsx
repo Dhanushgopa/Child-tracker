@@ -1,4 +1,4 @@
-import { Activity, BarChart3, FileText } from "lucide-react";
+import { Activity, Apple, FileText } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
@@ -21,31 +21,31 @@ const Header = () => {
         
         <nav className="flex items-center gap-8">
           <Link 
-            to="/dashboard" 
+            to="/" 
             className={`flex items-center gap-2 transition-colors ${
-              isActive('/dashboard') ? 'text-primary' : 'text-foreground hover:text-primary'
-            }`}
-          >
-            <BarChart3 className="w-4 h-4" />
-            <span className="font-medium">Dashboard</span>
-          </Link>
-          <Link 
-            to="/analytics" 
-            className={`flex items-center gap-2 transition-colors ${
-              isActive('/analytics') ? 'text-primary' : 'text-foreground hover:text-primary'
+              isActive('/') ? 'text-primary' : 'text-foreground hover:text-primary'
             }`}
           >
             <Activity className="w-4 h-4" />
-            <span className="font-medium">Analytics</span>
+            <span className="font-medium">Home</span>
           </Link>
           <Link 
-            to="/reports" 
+            to="/food-log" 
             className={`flex items-center gap-2 transition-colors ${
-              isActive('/reports') ? 'text-primary' : 'text-foreground hover:text-primary'
+              isActive('/food-log') ? 'text-primary' : 'text-foreground hover:text-primary'
+            }`}
+          >
+            <Apple className="w-4 h-4" />
+            <span className="font-medium">Food Log</span>
+          </Link>
+          <Link 
+            to="/history" 
+            className={`flex items-center gap-2 transition-colors ${
+              isActive('/history') ? 'text-primary' : 'text-foreground hover:text-primary'
             }`}
           >
             <FileText className="w-4 h-4" />
-            <span className="font-medium">Reports</span>
+            <span className="font-medium">History</span>
           </Link>
         </nav>
       </div>

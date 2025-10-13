@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Activity, Apple, FileText, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const Index = () => {
+const Home = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -159,4 +159,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Home;

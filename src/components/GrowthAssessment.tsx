@@ -14,7 +14,6 @@ import lengthAgeG from "@/tools/length-age-g.json";
 
 
 
-
 type RefResult = { z: number; label: string; ref: string } | null;
 
 type AnalysisResult = {
@@ -52,38 +51,10 @@ const GrowthAssessment: React.FC = () => {
       // select file names based on gender (female -> 'g', male -> 'b')
       const gSuffix = (gender === 'male' || gender === 'm') ? 'b' : 'g';
 
-      // fetch-based loader that tries multiple candidate filenames at server root
-      const tryFetchJson = async (candidates: string[]) => {
-        for (const name of candidates) {
-          const url = name.startsWith('/') ? name : `/${name}`;
-          try {
-            const res = await fetch(url);
-            if (res.ok) {
-              const json = await res.json();
-              return json;
-            }
-          } catch (e) {
-            // ignore fetch errors and try next candidate
-          }
-        }
-        throw new Error('Reference file not found: ' + candidates.join(', '));
-      };
-
-      const weightAgeCandidates = gSuffix === 'b'
-        ? ['weight-age-b.json', 'Weight-age-b.json']
-        : ['weight-age-g.json', 'Weight-age-g.json'];
-
-      const lengthWeightCandidates = gSuffix === 'b'
-        ? ['Weight-Lenght-b.json', 'Weight-Lenght-b.JSON', 'Weight-length-b.json']
-        : ['Weight-length-g.json', 'Weight-length-g.JSON'];
-
-      const lengthAgeCandidates = gSuffix === 'b'
-        ? ['Lenght-age-b.json', 'Lenght-age-b.JSON', 'Lenght-age-b.JSON', 'Lenght-age-b.json']
-        : ['length-age-g.json', 'length-age-g.JSON'];
-
-      const weightAgeRef = await tryFetchJson(weightAgeCandidates);
-      const lengthWeightRef = await tryFetchJson(lengthWeightCandidates);
-      const lengthAgeRef = await tryFetchJson(lengthAgeCandidates);
+      // Use imported JSON data directly instead of fetching
+      const weightAgeRef = gSuffix === 'b' ? weightAgeB : weightAgeG;
+      const lengthWeightRef = gSuffix === 'b' ? weightLengthB : weightLengthG;
+      const lengthAgeRef = gSuffix === 'b' ? lengthAgeB : lengthAgeG;
 
       // helper find closest
       const findClosest = (records: Array<Record<string, unknown>>, keys: string[], value: number) => {
@@ -159,6 +130,11 @@ const GrowthAssessment: React.FC = () => {
     }
   };
 
+  const handleSave = () => {
+    // In a real app, this would save the data to a database or state management system
+    alert("Assessment saved successfully!");
+  };
+
   const formatAge = (months?: number | null) => {
     if (months == null) return '—';
     const yrs = Math.floor(months / 12);
@@ -190,15 +166,8 @@ const GrowthAssessment: React.FC = () => {
   };
 
   return (
-    <section className="py-20 px-6 bg-background">
+    <section className="py-12 px-6 bg-background">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-foreground mb-4">Growth Assessment</h2>
-          <p className="text-xl text-muted-foreground">
-            Enter patient anthropometric data for comprehensive WHO growth standard analysis
-          </p>
-        </div>
-
         <div className="max-w-3xl mx-auto bg-card rounded-2xl shadow-lg p-8 border border-border">
           <div className="flex items-center gap-3 mb-8 pb-6 border-b border-border">
             <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -272,10 +241,15 @@ const GrowthAssessment: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap gap-4">
             <Button size="lg" onClick={handleCompute} disabled={loading} className="bg-warning hover:bg-warning/90 text-warning-foreground">
-              {loading ? 'Computing…' : 'Generate Growth Analysis'}
+              {loading ? 'Computing…' : 'Analyze Growth'}
             </Button>
+            {result && (
+              <Button size="lg" onClick={handleSave} variant="outline">
+                Save Assessment
+              </Button>
+            )}
           </div>
 
           {result && (
