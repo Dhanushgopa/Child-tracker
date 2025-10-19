@@ -26,11 +26,11 @@ const Features = () => {
   ];
 
   return (
-    <section className="py-16 px-6 bg-card">
+    <section>
       <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-8 mb-20">
+        <div className="features-grid">
           {features.map((feature, index) => (
-            <div key={index} className="text-center">
+            <div key={index} className="card">
               <div className={`w-16 h-16 mx-auto mb-6 rounded-lg border border-border ${feature.iconBg} flex items-center justify-center`}>
                 <feature.icon className={`w-8 h-8 ${feature.iconColor}`} />
               </div>

@@ -2,7 +2,7 @@ import { Activity, Shield, ExternalLink } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-secondary text-secondary-foreground py-12 px-6">
+    <footer>
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-3 gap-12 mb-8">
           <div>

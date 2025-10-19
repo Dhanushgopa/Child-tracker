@@ -1,10 +1,9 @@
 import { Shield } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <section className="bg-background py-20 px-6">
+    <section className="hero">
       <div className="max-w-4xl mx-auto text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 mb-8">
           <Shield className="w-4 h-4 text-primary" />
@@ -23,14 +22,12 @@ const Hero = () => {
         </p>
         
         <div className="flex gap-4 justify-center">
-          <Link to="/assessment">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              Get Started
-            </Button>
+          <Link to="/assessment" className="btn">
+            Get Started
           </Link>
-          <Button size="lg" variant="outline">
+          <button className="btn">
             Learn More
-          </Button>
+          </button>
         </div>
       </div>
     </section>
